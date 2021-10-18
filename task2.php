@@ -2,7 +2,12 @@
 
 function getTime(float $degrees): array
 {
-    $degrees = $degrees % 360;
+    if (($degrees >= 360) || ($degrees <= -360)) {
+        $degrees = $degrees - 360 * intdiv($degrees, 360);
+    }
+    if ($degrees < 0) {
+        $degrees = 360 + $degrees;
+    }
     $hourInSec = 30 / 3600;
     $seconds = round($degrees / $hourInSec);
     $minutes = floor($seconds / 60);
@@ -14,4 +19,4 @@ function getTime(float $degrees): array
         $minutes,
         $seconds,
     ];
-}
+};
